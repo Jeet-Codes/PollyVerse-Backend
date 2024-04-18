@@ -1,21 +1,24 @@
 package org.example.pollyversebackend.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Entity
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@Builder
+@Entity
 public class User {
         @Id
-        private String UserId;
-        private String UserEmail;
-        private String UserPasswd;
-
+        private String userid;
+        private String username;
+        private String email;
+        private String password;
+        @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        private Set<Role> roles = new HashSet<>();
 }
