@@ -24,4 +24,10 @@ public class UserController {
         LoginResponse loginResponse=userService.loginstudent(loginDto);
         return ResponseEntity.ok(loginResponse);
     }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<User> getUserById(@PathVariable String username) {
+        User userByUsername = userService.getUserByUsername(username);
+        return ResponseEntity.ok(userByUsername);
+    }
 }
