@@ -15,5 +15,7 @@ public class Config {
         }else{
             System.out.println("Email not sent");
         }
+
+
     }
 }
