@@ -9,7 +9,7 @@ public class Config {
         String from="jeetcodes127.0.1@gmail.com";
         String subject="Polly verse backend";
         String text="This is an Example of email and using java program";
-        boolean b = emailSender.sendEmail(to, from, subject, text);
+        boolean b = emailSender.sendEmail(from,to, subject, text);
         if(b){
             System.out.println("Email sent successfully");
         }else{
