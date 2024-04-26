@@ -4,6 +4,7 @@ package org.example.pollyversebackend.Service.ServiceImp;
 import org.example.pollyversebackend.Dto.LoginDto;
 import org.example.pollyversebackend.Entity.Role;
 import org.example.pollyversebackend.Entity.User;
+import org.example.pollyversebackend.Mail.EmailSender;
 import org.example.pollyversebackend.Repository.RoleRepo;
 import org.example.pollyversebackend.Repository.UserRepo;
 import org.example.pollyversebackend.Response.LoginResponse;
@@ -31,6 +32,16 @@ public class UserServiceImpl implements UserService {
         Role role = roleRepository.findById(normalRoleId).get();
         user.getRoles().add(role);
         User save = userRepository.save(user);
+
+//        String to="sandeep090304@gmail.com";
+        String from="jeetcodes127.0.1@gmail.com";
+//        String subject="Polly verse backend";
+        String body="This is Your Login Credentials for our Website. " +
+                "UserId :"+save.getEmail()+"\n"+
+                "Password :"+save.getPassword()+"\n"+
+                "Thank You For Registering..";
+        EmailSender emailSender=new EmailSender();
+        emailSender.sendEmail(from, save.getEmail(), "noreply@PollyVerse",body);
         return save;
     }
     @Override
