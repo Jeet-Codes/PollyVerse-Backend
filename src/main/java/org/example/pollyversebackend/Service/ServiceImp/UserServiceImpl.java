@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -80,5 +81,11 @@ public class UserServiceImpl implements UserService {
         User find=userRepository.findByEmail(username);
         return find;
 
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> users=userRepository.findAll();
+        return users;
     }
 }

@@ -5,8 +5,11 @@ import org.example.pollyversebackend.Entity.User;
 import org.example.pollyversebackend.Response.LoginResponse;
 import org.example.pollyversebackend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -29,5 +32,12 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable String username) {
         User userByUsername = userService.getUserByUsername(username);
         return ResponseEntity.ok(userByUsername);
+    }
+
+    @GetMapping
+    public List<User> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+
+        return new ResponseEntity<>(users, HttpStatus.FOUND).getBody();
     }
 }
