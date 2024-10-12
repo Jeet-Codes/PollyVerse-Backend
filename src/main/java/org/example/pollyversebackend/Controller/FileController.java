@@ -65,6 +65,31 @@ public class FileController {
     }
 
 
+    @GetMapping("/viewMultiple")
+    public ResponseEntity<List<Resource>> viewMultipleFiles(@RequestParam List<String> filenames) {
+        List<Resource> resources = new ArrayList<>();
+
+        for (String filename : filenames) {
+            try {
+                String filePath = "file:Files/" + filename; // Ensure this matches your file structure
+                Resource resource = resourceLoader.getResource(filePath);
+
+                // Check if the resource exists
+                if (!resource.exists()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+
+                resources.add(resource);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return ResponseEntity.ok(resources);
+    }
+
+
 
     @PostMapping("/multipleFileUpload")
     public ResponseEntity<List<FileData>> uploadFiles(@RequestParam("files") MultipartFile[] files) throws IOException {
