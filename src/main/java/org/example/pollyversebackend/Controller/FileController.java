@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -33,6 +34,20 @@ public class FileController {
         String filename = this.fileService.uploadFile(path, file);
         return new ResponseEntity<>(new FileData(filename,"Image is Successfully Uplaoded"),HttpStatus.OK);
 
+    }
+
+
+    @PostMapping("/multipleFileUpload")
+    public ResponseEntity<List<FileData>> uploadFiles(@RequestParam("files") MultipartFile[] files) throws IOException {
+
+        List<FileData> fileDataList = new ArrayList<>();
+
+        for (MultipartFile file : files) {
+            String filename = this.fileService.uploadFile(path, file);
+            fileDataList.add(new FileData(filename, "File is Successfully Uploaded"));
+        }
+
+        return new ResponseEntity<>(fileDataList, HttpStatus.OK);
     }
 
     @GetMapping("/{name}")
