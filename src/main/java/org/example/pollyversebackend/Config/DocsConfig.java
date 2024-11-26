@@ -16,6 +16,8 @@ import io.swagger.v3.oas.annotations.info.License;
                                 license = @License(name = "MIT Licence 1.0")
             )
         )
+        // An Update Check
+
 public class DocsConfig {
 
 }
